@@ -1,55 +1,63 @@
 import React, {useState} from 'react';
-import {StyleSheet} from 'react-native';
 import {
-  ViroARScene,
-  ViroText,
-  ViroConstants,
-  ViroARSceneNavigator,
-} from '@viro-community/react-viro';
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  TextInput,
+  Alert
+} from 'react-native';
+import TextAR from './Components/TextAR';
+import Box from './Components/Box';
+const DATA=[
+  {id:1,title:"3D Text",description:"see you name in this world anywhere",type:'text'},
+  {id:2,title:"3D Box",description:"Capture a moments with you 3d Box",type:'box'},
+  {id:3,title:"Solar System",description:"Enjoy a 3D overview of solar system",type:'system'},
+]
 
-const HelloWorldSceneAR = () => {
-  const [text, setText] = useState('Initializing AR...');
+import styles from './Styles/styles';
 
-  function onInitialized(state, reason) {
-    console.log('guncelleme', state, reason);
-    if (state === ViroConstants.TRACKING_NORMAL) {
-      setText('Hello World!');
-    } else if (state === ViroConstants.TRACKING_NONE) {
-      // Handle loss of tracking
-    }
-  }
+const App=() => {
+  const [manageAR,setManageAR]=useState(null);
+  const [name,setName]=useState(null);
+  const renderItem = ({ item }) => (
+    <View style={styles.card} >
+      <Text style={styles.title} >{item.title}</Text>
+      <Text style={styles.description} >{item.description}</Text>
+      {
+        item.type === 'text' ?
+        <TextInput 
+          placeholder='Enter anything you want in 3D Space'
+          placeholderTextColor={"black"}
+          style={styles.input}
+          onChangeText={(name)=>setName(name)}
+        />:null
+      }
+      <TouchableOpacity style={styles.btnContainer} onPress={()=>{name===null && item.type=='text'?Alert.alert("Please Enter Something"):setManageAR(item.type)}}>
+        <Text style={styles.btnTxt} >View 360 Degree</Text>
+      </TouchableOpacity>
+    </View>
+  );
 
   return (
-    <ViroARScene onTrackingUpdated={onInitialized}>
-      <ViroText
-        text={text}
-        scale={[0.5, 0.5, 0.5]}
-        position={[0, 0, -1]}
-        style={styles.helloWorldTextStyle}
-      />
-    </ViroARScene>
+    <View style={styles.container}>
+     {
+       manageAR === 'text' ?<TextAR goBack={setManageAR} visibleText={name} />:
+       manageAR === 'box' ? <Box goBack={setManageAR} />:
+       <>
+        <Text style={[styles.text,{fontSize:30,textAlign:'left'}]}>Welcome to Augemented reality App</Text>
+        <Text style={[styles.text,{fontSize:20,textAlign:'left'}]}>Enjoy this 3D World</Text>
+        <FlatList
+          data={DATA}
+          key={items=>items.id}
+          renderItem={renderItem}
+        />
+       </>
+       
+     }
+    </View>
   );
 };
 
-export default () => {
-  return (
-    <ViroARSceneNavigator
-      autofocus={true}
-      initialScene={{
-        scene: HelloWorldSceneAR,
-      }}
-      style={styles.f1}
-    />
-  );
-};
 
-var styles = StyleSheet.create({
-  f1: {flex: 1},
-  helloWorldTextStyle: {
-    fontFamily: 'Arial',
-    fontSize: 30,
-    color: '#ffffff',
-    textAlignVertical: 'center',
-    textAlign: 'center',
-  },
-});
+export default App;
