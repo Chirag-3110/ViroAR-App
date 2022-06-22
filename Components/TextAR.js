@@ -43,7 +43,6 @@ const textScene=(props)=>{
     )
 }
 const TextAR=(props)=>{ 
-    const [title,setTitle]=useState(props.visibleText)
     return(
         <View style={styles.container}>
             <ViroARSceneNavigator

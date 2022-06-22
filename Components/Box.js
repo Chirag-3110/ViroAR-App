@@ -20,7 +20,7 @@ const boxScene=()=>{
     const [anim,startAnim]=useState(null);
     ViroMaterials.createMaterials({
         boxMaterial:{
-            diffuseTexture:require('../Assets/color.png')
+            diffuseTexture:{uri:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIkUlQehdTefxsfZCKHiddcMqGEVsFuEZyGA&usqp=CAU'}
         }
     });
 
