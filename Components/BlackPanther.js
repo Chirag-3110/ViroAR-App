@@ -17,7 +17,7 @@ import {
     ViroOmniLight,
     Viro3DObject,
     ViroQuad,
-    ViroOrbitCamera
+    ViroCamera
 } from '@viro-community/react-viro';
 import styles from '../Styles/styles';
 const PantherScene=()=>{
@@ -62,6 +62,10 @@ const PantherScene=()=>{
     return(
         <ViroARScene >
             <ViroAmbientLight color="#ffffff" intensity={200}/>
+            <ViroCamera
+                position={[0,0,0]}
+                active={true}
+            />
                 <ViroARImageMarker target={"poster"} onAnchorFound={_onAnchorFound} pauseUpdates={pauseUpdates}>
                     <ViroNode position={[0, -.1, 0]} scale={[0,0,0]} rotation={[-90, 0, 0]} dragType="FixedToWorld" animation={{name:"scaleModel", run:playAnim,}} >
                     <Viro3DObject  onLoadEnd={_onModelLoad}
@@ -78,6 +82,51 @@ const PantherScene=()=>{
                     />
                     </ViroNode>
                 </ViroARImageMarker>
+                <ViroOmniLight
+                intensity={300}
+                position={[-10, 10, 1]}
+                color={"#FFFFFF"}
+                attenuationStartDistance={20}
+                attenuationEndDistance={30} />
+
+            <ViroOmniLight
+                intensity={300}
+                position={[10, 10, 1]}
+                color={"#FFFFFF"}
+                attenuationStartDistance={20}
+                attenuationEndDistance={30} />
+
+            <ViroOmniLight
+                intensity={300}
+                position={[-10, -10, 1]}
+                color={"#FFFFFF"}
+                attenuationStartDistance={20}
+                attenuationEndDistance={30} />
+
+            <ViroOmniLight
+                intensity={300}
+                position={[10, -10, 1]}
+                color={"#FFFFFF"}
+                attenuationStartDistance={20}
+                attenuationEndDistance={30} />
+
+            <ViroSpotLight
+                position={[0, 8, -2]}
+                color="#ffffff"
+                direction={[0, -1, 0]}
+                intensity={50}
+                attenuationStartDistance={5}
+                attenuationEndDistance={10}
+                innerAngle={5}
+                outerAngle={20}
+                castsShadow={true}
+            />
+            <ViroQuad
+                rotation={[-90, 0, 0]}
+                position={[0, -1.6, 0]}
+                width={5} height={5}
+                arShadowReceiver={true}
+            />
         </ViroARScene>
     )
 }

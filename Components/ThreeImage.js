@@ -7,28 +7,28 @@ import {
 import {
     ViroARSceneNavigator,
     Viro360Image,
-    ViroARScene
+    ViroARScene,
+    ViroOmniLight,
+    ViroSpotLight,
+    ViroQuad,
+    ViroNode
 } from '@viro-community/react-viro';
 import styles from '../Styles/styles';
-const imageScene=(props)=>{
-    const [path,setPath]=useState(props.sceneNavigator.viroAppProps);
+const imageScene=()=>{
     return(
         <ViroARScene>
             <Viro360Image
-                source={{uri:path.imageUrl}}
-                rotation={[0, 45, 0]}
-                format="RGBA8"
-                isHdr={true}
-                onLoadStart={()=>console.log("Loading start")}
-                onLoadEnd={()=>console.log("loaging end")}
-            />
+                    source={{uri:"https://www.stellardigital.in/blog/wp-content/uploads/2022/02/Reshape-the-future-with-Metaverse-and-Virtual-Reality-min.jpg"}}
+                    rotation={[0, 45, 0]}
+                    format="RGBA8"
+                    isHdr={true}
+                    onLoadStart={()=>console.log("Loading start")}
+                    onLoadEnd={()=>console.log("loaging end")}
+                />
         </ViroARScene>
     )
 }
 const ImageVR=(props)=>{
-    useEffect(()=>{
-        console.log(props.imageurl)
-    },[])
     return(
         <View style={styles.container}>
             <ViroARSceneNavigator
@@ -36,7 +36,6 @@ const ImageVR=(props)=>{
                     scene:imageScene
                 }}
                 autofocus={true}
-                viroAppProps={{"imageUrl":props.imageurl}}
             />
             <TouchableOpacity style={styles.btnContainer} onPress={()=>props.goBack(null)} >
                 <Text style={styles.btnTxt}>Go Back</Text>

@@ -21,7 +21,7 @@ import VideoVR from './Components/ThreeVideo';
 const DATA=[
   {id:1,title:"3D Text",description:"see you name in this world anywhere",type:'text'},
   {id:2,title:"3D Box",description:"Capture a moments with you 3d Box",type:'box'},
-  {id:3,title:"Solar System",description:"Enjoy a 3D overview of solar system",type:'system'},
+  // {id:3,title:"Solar System",description:"Enjoy a 3D overview of solar system",type:'system'},
   {id:4,title:"3D world Image",description:"See your image in the real world",type:'3dimage'},
   {id:5,title:"3D world Video",description:"See your Videos in the real world",type:'3dvideo'},
   {id:6,title:"Inside 3D Cube",description:"Enter into an exciting world of games",type:'imagesCube'},
@@ -55,7 +55,7 @@ const App=() => {
       }
 {/* get image for 3d image */}
       {
-        item.type === '3dimage' || item.type === '360image' ?
+        item.type === '3dimage'?
         <TouchableOpacity style={[styles.btnContainer,{backgroundColor:'#60BEFF'}]} 
             onPress={()=>getImage()}
         >
@@ -114,7 +114,7 @@ const App=() => {
        manageAR === 'text' ?<TextAR goBack={setManageAR} visibleText={name} />:
        manageAR === 'box' ? <Box goBack={setManageAR} />:
        manageAR === '3dimage' ? <Image goBack={setManageAR} filPath={imageData} />:
-       manageAR === 'system' ? <System goBack={setManageAR} />:
+      //  manageAR === 'system' ? <System goBack={setManageAR} />:
        manageAR === '3dvideo' ? <VideoView goBack={setManageAR} videoPath={videoData} />:
        manageAR === 'imagesCube' ? <SkyBox goBack={setManageAR} /> :
        manageAR === 'object' ? <RealObject goBack={setManageAR} /> :
